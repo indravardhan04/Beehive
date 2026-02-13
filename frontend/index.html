@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beehive | Anonymous Knowledge Sharing</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+    <div class="vitaplogo">
+        <img src="assets/images/vitaplogo.png" alt="College Logo">
+    </div>
+
+    <h2 class="title">
+        <img src="assets/images/honeybee.png" alt="Honeybee Logo" class="bee-logo">
+        BEEHIVE
+    </h2>
+
+    <div class="nav-right"></div>
+</nav>
+
+    <section class="hero" onmousemove="updateMousePosition(event)">
+        <div class="honeycomb-glow"></div>
+
+        <div class="hero-content">
+            <div class="live-buzzing">
+                <span class="ping"></span>
+                Live & Buzzing: 12.4k active bees
+            </div>
+            <h1>Anonymity Meets <span class="highlight">Collective Intelligence</span></h1>
+            <p>Share, learn, and grow without the profile pressure. Beehive is an anonymous forum built for high-signal collaborative knowledge sharing.</p>
+            <div class="hero-buttons">
+                <a href="login.html" class="btn primary">Enter the Hive</a>
+                <a href="hive.html" class="btn secondary">Explore the Grid</a>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-left">
+                <img src="assets/images/vitaplogo.png" alt="College Logo">
+            </div>
+            <div class="footer-center">
+                Encrypted & Secure
+            </div>
+            <div class="footer-right">
+                Server Status: <span class="status green">Optimal</span>
+            </div>
+        </footer>
+    </section>
+
+    <script>
+        function updateMousePosition(e) {
+            document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+            document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+        }
+    </script>
+</body>
+</html>

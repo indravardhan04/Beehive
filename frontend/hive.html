@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hive | Elite Intelligence Command Center</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/hive.css">
+</head>
+
+<body>
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="nav-center">
+                <div class="logo-box">H</div>
+                <span class="logo-text">THE HIVE</span>
+            </div>
+            <div class="nav-right">
+                <div class="nav-search">
+                    <input type="text" placeholder="Search intelligence..." />
+                </div>
+                <div class="nav-notification">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                </div>
+                <div class="nav-user">
+                    <div class="user-indicator"></div>
+                    <span class="bee-id">B-2481</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hive-main">
+        <div class="hive-container">
+            <aside class="hive-sidebar">
+                <nav class="sidebar-nav">
+                    <a class="nav-item active" href="#">Feed</a>
+                    <a class="nav-item" href="#">Trending</a>
+                    <a class="nav-item" href="#">My Threads</a>
+                    <a class="nav-item" href="#">Saved</a>
+                    <a class="nav-item" href="#">Settings</a>
+                </nav>
+                <button class="create-thread">
+                    + CREATE THREAD
+                </button>
+                <div class="reputation-section">
+                    <div class="rep-label">HIVE REPUTATION</div>
+                    <div class="rep-bar">
+                        <div class="rep-fill" style="width: 75%"></div>
+                    </div>
+                    <div class="rep-text">Level 7 • 2,450 XP</div>
+                </div>
+            </aside>
+
+            <section class="hive-feed">
+                <div class="feed-filters">
+                    <button class="filter-pill active">LATEST</button>
+                    <button class="filter-pill">POPULAR</button>
+                    <button class="filter-pill">UNSOLVED</button>
+                </div>
+                <div class="threads-container">
+                    <article class="thread-card">
+                        <div class="thread-votes">
+                            <button class="vote-btn up">▲</button>
+                            <span class="vote-count">42</span>
+                            <button class="vote-btn down">▼</button>
+                        </div>
+                        <div class="thread-content">
+                            <div class="thread-meta">
+                                <span class="thread-tag">BIOTECH</span>
+                                <span class="thread-author">B-1234</span>
+                                <span class="thread-time">2H AGO</span>
+                            </div>
+                            <h3 class="thread-title">CRISPR Breakthrough: Ethical Boundaries in Personalized Medicine</h3>
+                            <p class="thread-preview">Just discovered a fascinating biotech breakthrough in CRISPR technology. The implications for personalized medicine are enormous. What are your thoughts on the ethical boundaries?</p>
+                            <div class="thread-actions">
+                                <button class="action-btn">💬 8 REPLIES</button>
+                                <button class="action-btn">🔗 SHARE</button>
+                                <button class="action-btn">⚠️ REPORT</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="thread-card">
+                        <div class="thread-votes">
+                            <button class="vote-btn up">▲</button>
+                            <span class="vote-count">27</span>
+                            <button class="vote-btn down">▼</button>
+                        </div>
+                        <div class="thread-content">
+                            <div class="thread-meta">
+                                <span class="thread-tag">ECONOMICS</span>
+                                <span class="thread-author">B-5678</span>
+                                <span class="thread-time">4H AGO</span>
+                            </div>
+                            <h3 class="thread-title">Macro-Economics Update: Supply Chain Disruptions Persist</h3>
+                            <p class="thread-preview">Inflation rates are stabilizing, but supply chain disruptions persist. How is this affecting your sector?</p>
+                            <div class="thread-actions">
+                                <button class="action-btn">💬 12 REPLIES</button>
+                                <button class="action-btn">🔗 SHARE</button>
+                                <button class="action-btn">⚠️ REPORT</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="thread-card encrypted">
+                        <div class="thread-votes">
+                            <button class="vote-btn up">▲</button>
+                            <span class="vote-count">35</span>
+                            <button class="vote-btn down">▼</button>
+                        </div>
+                        <div class="thread-content">
+                            <div class="thread-meta">
+                                <span class="thread-tag">PRIVACY</span>
+                                <span class="thread-author">B-9012</span>
+                                <span class="thread-time">6H AGO</span>
+                                <span class="encrypted-badge">ENCRYPTED_THREAD</span>
+                            </div>
+                            <h3 class="thread-title">AI Privacy Regulations: Rethinking Data Collection Strategies</h3>
+                            <p class="thread-preview">New regulations incoming. Time to rethink data collection strategies?</p>
+                            <div class="thread-actions">
+                                <button class="action-btn">💬 15 REPLIES</button>
+                                <button class="action-btn">🔗 SHARE</button>
+                                <button class="action-btn">⚠️ REPORT</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <aside class="hive-intel">
+                <div class="intel-panel">
+                    <h4 class="panel-title">TRENDING TOPICS</h4>
+                    <ul class="trending-list">
+                        <li><span class="trend-hashtag">#biotech</span> <span class="trend-count">1.2k</span></li>
+                        <li><span class="trend-hashtag">#macro-economics</span> <span class="trend-count">890</span></li>
+                        <li><span class="trend-hashtag">#privacy</span> <span class="trend-count">654</span></li>
+                        <li><span class="trend-hashtag">#ai-ethics</span> <span class="trend-count">432</span></li>
+                        <li><span class="trend-hashtag">#quantum-computing</span> <span class="trend-count">321</span></li>
+                    </ul>
+                </div>
+                <div class="intel-panel">
+                    <h4 class="panel-title">THE HIVE CODE</h4>
+                    <ol class="code-list">
+                        <li>Maintain absolute anonymity</li>
+                        <li>Signal over noise</li>
+                        <li>Vote with precision</li>
+                        <li>Contribute intelligence</li>
+                        <li>Respect the collective</li>
+                    </ol>
+                </div>
+                <div class="status-panel">
+                    <div class="status-indicator"></div>
+                    <span class="status-text">HIVESYNC ACTIVE</span>
+                </div>
+            </aside>
+        </div>
+        <div class="ambient-effects">
+            <div class="ambient-glow"></div>
+        </div>
+    </main>
+    <script src="js/hive.js"></script>
+</body>
+</html>

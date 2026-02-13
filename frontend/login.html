@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beehive | Core Access</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="vitaplogo">
+            <img src="assets/images/vitaplogo.png" alt="College Logo">
+        </div>
+
+        <h2 class="title">
+            <img src="assets/images/honeybee.png" class="bee-logo">
+            BEEHIVE
+        </h2>
+
+        <div class="nav-right"></div>
+    </nav>
+
+    <section class="auth-wrapper" onmousemove="updateMousePosition(event)">
+        <div class="honeycomb-glow"></div>
+
+        <div class="auth-container" id="authContainer">
+
+            <div class="auth-panel creative-panel">
+                <div class="creative-content">
+
+                    <img src="assets/images/honeybee.png" 
+                         class="floating-bee" 
+                         alt="Bee">
+
+                    <h2 id="creativeTitle">Welcome Back, Bee.</h2>
+                    <p id="creativeText">
+                        Re-enter the hive and sync with the collective intelligence.
+                    </p>
+
+                    <button class="btn secondary switch-btn" onclick="toggleAuth()">
+                        Become a Bee
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="auth-panel form-panel">
+                <form id="authForm">
+
+                    <h2 id="formTitle">Login</h2>
+
+                    <div class="input-group">
+                        <label>Username</label>
+                        <input type="text" id="username" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+
+                    <div class="input-group register-only">
+                        <label>Confirm Password</label>
+                        <input type="password" id="confirmPassword">
+                    </div>
+
+                    <button type="submit" class="btn primary full">
+                        Access Hive
+                    </button>
+
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="js/auth.js"></script>
+
+    <script>
+        function updateMousePosition(e) {
+            document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+            document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+        }
+    </script>
+
+</body>
+</html>

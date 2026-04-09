@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Hive | Elite Intelligence Command Center</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/hive.css">
 </head>
 
@@ -28,7 +30,7 @@
                 </div>
                 <div class="nav-user">
                     <div class="user-indicator"></div>
-                    <span class="bee-id">B-2481</span>
+                    <span class="bee-id" id="navBeeId">B-????</span>
                 </div>
             </div>
         </div>
@@ -38,11 +40,10 @@
         <div class="hive-container">
             <aside class="hive-sidebar">
                 <nav class="sidebar-nav">
-                    <a class="nav-item active" href="#">Feed</a>
-                    <a class="nav-item" href="#">Trending</a>
-                    <a class="nav-item" href="#">My Threads</a>
-                    <a class="nav-item" href="#">Saved</a>
-                    <a class="nav-item" href="#">Settings</a>
+                    <a class="nav-item" href="#" id="filterFeedBtn">Feed</a>
+                    <a class="nav-item" href="profile.html">My Profile</a>
+                    <a class="nav-item" href="saved.html">Saved</a>
+                    <a class="nav-item" href="settings.html">Settings</a>
                 </nav>
                 <button class="create-thread">
                     + CREATE THREAD
@@ -50,95 +51,31 @@
                 <div class="reputation-section">
                     <div class="rep-label">HIVE REPUTATION</div>
                     <div class="rep-bar">
-                        <div class="rep-fill" style="width: 75%"></div>
+                        <div class="rep-fill" id="sidebarRepFill" style="width: 0%"></div>
                     </div>
-                    <div class="rep-text">Level 7 • 2,450 XP</div>
+                    <div class="rep-text" id="sidebarRepText">Level 1 • 0 XP</div>
                 </div>
             </aside>
 
             <section class="hive-feed">
                 <div class="feed-filters">
-                    <button class="filter-pill active">LATEST</button>
-                    <button class="filter-pill">POPULAR</button>
-                    <button class="filter-pill">UNSOLVED</button>
+                    <button class="filter-pill active" data-filter="LATEST">LATEST</button>
+                    <button class="filter-pill" data-filter="POPULAR">POPULAR</button>
+                    <button class="filter-pill" data-filter="UNSOLVED">UNSOLVED</button>
                 </div>
-                <div class="threads-container">
-                    <article class="thread-card">
-                        <div class="thread-votes">
-                            <button class="vote-btn up">▲</button>
-                            <span class="vote-count">42</span>
-                            <button class="vote-btn down">▼</button>
-                        </div>
-                        <div class="thread-content">
-                            <div class="thread-meta">
-                                <span class="thread-tag">BIOTECH</span>
-                                <span class="thread-author">B-1234</span>
-                                <span class="thread-time">2H AGO</span>
-                            </div>
-                            <h3 class="thread-title">CRISPR Breakthrough: Ethical Boundaries in Personalized Medicine</h3>
-                            <p class="thread-preview">Just discovered a fascinating biotech breakthrough in CRISPR technology. The implications for personalized medicine are enormous. What are your thoughts on the ethical boundaries?</p>
-                            <div class="thread-actions">
-                                <button class="action-btn">💬 8 REPLIES</button>
-                                <button class="action-btn">🔗 SHARE</button>
-                                <button class="action-btn">⚠️ REPORT</button>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="thread-card">
-                        <div class="thread-votes">
-                            <button class="vote-btn up">▲</button>
-                            <span class="vote-count">27</span>
-                            <button class="vote-btn down">▼</button>
-                        </div>
-                        <div class="thread-content">
-                            <div class="thread-meta">
-                                <span class="thread-tag">ECONOMICS</span>
-                                <span class="thread-author">B-5678</span>
-                                <span class="thread-time">4H AGO</span>
-                            </div>
-                            <h3 class="thread-title">Macro-Economics Update: Supply Chain Disruptions Persist</h3>
-                            <p class="thread-preview">Inflation rates are stabilizing, but supply chain disruptions persist. How is this affecting your sector?</p>
-                            <div class="thread-actions">
-                                <button class="action-btn">💬 12 REPLIES</button>
-                                <button class="action-btn">🔗 SHARE</button>
-                                <button class="action-btn">⚠️ REPORT</button>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="thread-card encrypted">
-                        <div class="thread-votes">
-                            <button class="vote-btn up">▲</button>
-                            <span class="vote-count">35</span>
-                            <button class="vote-btn down">▼</button>
-                        </div>
-                        <div class="thread-content">
-                            <div class="thread-meta">
-                                <span class="thread-tag">PRIVACY</span>
-                                <span class="thread-author">B-9012</span>
-                                <span class="thread-time">6H AGO</span>
-                                <span class="encrypted-badge">ENCRYPTED_THREAD</span>
-                            </div>
-                            <h3 class="thread-title">AI Privacy Regulations: Rethinking Data Collection Strategies</h3>
-                            <p class="thread-preview">New regulations incoming. Time to rethink data collection strategies?</p>
-                            <div class="thread-actions">
-                                <button class="action-btn">💬 15 REPLIES</button>
-                                <button class="action-btn">🔗 SHARE</button>
-                                <button class="action-btn">⚠️ REPORT</button>
-                            </div>
-                        </div>
-                    </article>
+                <div class="threads-container" id="feedContainer">
+                    <!-- Threads will be dynamically injected here -->
+                    <div class="loading-state" style="text-align: center; color: #9ca3af; padding: 40px;">
+                        Loading the collective intel...
+                    </div>
                 </div>
             </section>
 
             <aside class="hive-intel">
                 <div class="intel-panel">
                     <h4 class="panel-title">TRENDING TOPICS</h4>
-                    <ul class="trending-list">
-                        <li><span class="trend-hashtag">#biotech</span> <span class="trend-count">1.2k</span></li>
-                        <li><span class="trend-hashtag">#macro-economics</span> <span class="trend-count">890</span></li>
-                        <li><span class="trend-hashtag">#privacy</span> <span class="trend-count">654</span></li>
-                        <li><span class="trend-hashtag">#ai-ethics</span> <span class="trend-count">432</span></li>
-                        <li><span class="trend-hashtag">#quantum-computing</span> <span class="trend-count">321</span></li>
+                    <ul class="trending-list" id="trendingList">
+                        <!-- Loaded dynamically -->
                     </ul>
                 </div>
                 <div class="intel-panel">
@@ -161,6 +98,30 @@
             <div class="ambient-glow"></div>
         </div>
     </main>
+
+    <!-- Create Thread Modal -->
+    <div class="modal-overlay" id="threadModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Broadcast Intelligence</h3>
+                <button class="close-modal" id="closeThreadModal">&times;</button>
+            </div>
+            <form id="createThreadForm">
+                <input type="text" id="threadTitle" class="modal-input title-input" placeholder="Enter headline..."
+                    required>
+                <textarea id="threadContent" class="modal-input content-input" rows="6"
+                    placeholder="Share your intel..." required></textarea>
+                <div class="modal-footer">
+                    <input type="text" id="threadTag" class="modal-input tag-input" placeholder="#hashtag (optional)">
+                    <button type="submit" class="transmit-btn">TRANSMIT</button>
+                </div>
+                <div id="threadMessage" style="display:none; color:#ef4444; margin-top:10px; font-size:14px;"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
     <script src="js/hive.js"></script>
 </body>
+
 </html>

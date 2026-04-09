@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beehive | Profile</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/hive.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="nav-center">
+                <a href="hive.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px; color: inherit;">
+                    <div class="logo-box">H</div>
+                    <span class="logo-text">THE HIVE</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="hive.html" class="filter-pill" style="text-decoration: none;">RETURN TO GRID</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hive-main">
+        <div class="hive-container profile-layout">
+            
+            <!-- Sidebar Setup -->
+            <aside>
+                <div class="identity-card">
+                    <!-- Default avatar, clicking allows upload logic (emoji switch for MVP) -->
+                    <div class="bee-avatar pulse" id="avatarDisplay" title="Click to change identity symbol" onclick="cycleAvatar()">🐝</div>
+                    <div class="bee-title" id="profileId">B-XXXX</div>
+                    <div class="status-indicator"></div>
+                    
+                    <div style="display:flex; justify-content:space-around; margin-top:20px; border-top:1px solid rgba(255,255,255,0.05); padding-top:20px;">
+                        <div>
+                            <div style="font-size:24px; font-weight:800; color:var(--primary)" id="profileLevel">1</div>
+                            <div style="font-size:10px; color:var(--text-muted); letter-spacing:0.1em; font-weight:700">LEVEL</div>
+                        </div>
+                        <div>
+                            <div style="font-size:24px; font-weight:800; color:var(--text-main)" id="profileUpvotes">0</div>
+                            <div style="font-size:10px; color:var(--text-muted); letter-spacing:0.1em; font-weight:700">XP</div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Links -->
+                    <div class="profile-nav" id="sidebarControls">
+                        <button class="profile-nav-item active" onclick="switchTab('threads')">
+                            My Transmissions <span id="profileThreads">0</span>
+                        </button>
+                        <a class="profile-nav-item" href="saved.html" style="text-decoration:none; display:flex; justify-content:space-between; align-items:center;">
+                            Saved Intel <span>🔖</span>
+                        </a>
+                        <a class="profile-nav-item" href="settings.html" style="text-decoration:none; display:flex; justify-content:space-between; align-items:center;">
+                            Terminal Settings <span>⚙️</span>
+                        </a>
+                        <button class="profile-nav-item logout-btn" onclick="logout()">
+                            Log Out <span>⏻</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Dynamic Content Area -->
+            <section class="content-area">
+                <div class="tab-header">
+                    <h2 class="content-title" id="activeTabTitle">My Transmissions</h2>
+                </div>
+                <div class="threads-container" id="profileFeedContainer">
+                    <div class="loading-state" style="text-align: center; color: #9ca3af; padding: 40px;">
+                        Fetching archives...
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <div class="ambient-effects">
+            <div class="ambient-glow"></div>
+        </div>
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Terminal Settings</h3>
+                <button class="close-modal" onclick="closeSettings()">&times;</button>
+            </div>
+            <form id="settingsForm">
+                <h5 style="margin-bottom:10px; color:var(--text-muted);">CHANGE PASSWORD</h5>
+                <input type="password" id="oldPassword" class="modal-input" placeholder="Current Password" required>
+                <input type="password" id="newPassword" class="modal-input" placeholder="New Password" required>
+                
+                <div id="settingsMessage" style="display:none; color:#ef4444; margin-bottom:15px; font-size:14px;"></div>
+                
+                <button type="submit" class="transmit-btn" style="width:100%;">UPDATE CREDENTIALS</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

@@ -26,7 +26,7 @@
         <div class="hero-content">
             <div class="live-buzzing">
                 <span class="ping"></span>
-                Live & Buzzing: 12.4k active bees
+                Live & Buzzing: <span id="activeBeeCount">...</span> active bees
             </div>
             <h1>Anonymity Meets <span class="highlight">Collective Intelligence</span></h1>
             <p>Share, learn, and grow without the profile pressure. Beehive is an anonymous forum built for high-signal collaborative knowledge sharing.</p>
@@ -49,11 +49,33 @@
         </footer>
     </section>
 
+    <script src="js/config.js"></script>
     <script>
         function updateMousePosition(e) {
             document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
             document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
         }
+
+        // Fetch live bee count from backend
+        async function loadBeeCount() {
+            try {
+                const res = await fetch(`${backendUrl}/api/auth/count`);
+                if (res.ok) {
+                    const data = await res.json();
+                    const el = document.getElementById('activeBeeCount');
+                    if (el) el.textContent = data.count.toLocaleString();
+                } else {
+                    document.getElementById('activeBeeCount').textContent = 'many';
+                }
+            } catch {
+                document.getElementById('activeBeeCount').textContent = 'many';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateMousePosition({ clientX: 0, clientY: 0 });
+            loadBeeCount();
+        });
     </script>
 </body>
 </html>

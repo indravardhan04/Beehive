@@ -11,6 +11,9 @@ let isRegisterMode = false;
 function toggleAuth() {
     isRegisterMode = !isRegisterMode;
     authContainer.classList.toggle("active");
+    
+    const authMessage = document.getElementById("authMessage");
+    authMessage.style.display = "none";
 
     if (isRegisterMode) {
         formTitle.textContent = "Register";
@@ -30,16 +33,30 @@ function toggleAuth() {
 authForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const email = document.getElementById("email").value;
+    const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword")?.value;
+    const authMessage = document.getElementById("authMessage");
+    
+    const showMessage = (msg, type) => {
+        authMessage.textContent = msg;
+        authMessage.className = `auth-message ${type}`;
+        authMessage.style.display = "block";
+    };
+
+    authMessage.style.display = "none";
 
     if (isRegisterMode && password !== confirmPassword) {
-        alert("Passwords do not match.");
+        showMessage("Passwords do not match.", "error");
         return;
     }
 
-    const endpoint = isRegisterMode ? "/api/auth/register" : "/api/auth/login";
+    // backendUrl from js/config.js
+    const endpoint = isRegisterMode ? `${backendUrl}/api/auth/register` : `${backendUrl}/api/auth/login`;
+    
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = "Processing...";
+    submitBtn.disabled = true;
 
     try {
         const res = await fetch(endpoint, {
@@ -47,23 +64,28 @@ authForm.addEventListener("submit", async function (e) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ username, password })
         });
 
         const data = await res.json();
 
         if (res.ok) {
+            showMessage(data.message || "Success!", "success");
             if (!isRegisterMode) {
                 localStorage.setItem("token", data.token);
-                window.location.href = "dashboard.html";
+                setTimeout(() => window.location.href = "hive.html", 1000);
             } else {
-                toggleAuth();
+                setTimeout(() => toggleAuth(), 1500);
             }
         } else {
-            alert(data.message || "Something went wrong.");
+            showMessage(data.message || "Something went wrong.", "error");
         }
 
     } catch (err) {
-        alert("Server error.");
+        showMessage("Server error. Please try again later.", "error");
+    } finally {
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
     }
 });
+

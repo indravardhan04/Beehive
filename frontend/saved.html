@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beehive | Saved Intel</title>
+    <meta name="description" content="Your bookmarked threads from The Hive intelligence grid.">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/hive.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <style>
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .page-header-icon {
+            font-size: 28px;
+        }
+        .page-header h1 {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--text-main);
+        }
+        .page-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .saved-count {
+            margin-left: auto;
+            background: var(--primary-glow);
+            border: 1px solid var(--border-primary);
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: var(--radius-md);
+            letter-spacing: 0.1em;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; color: var(--text-main); }
+        .empty-state p { font-size: 14px; line-height: 1.6; }
+        .empty-state a {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid var(--border-primary);
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            transition: 0.2s ease;
+        }
+        .empty-state a:hover { background: var(--primary-glow); }
+    </style>
+</head>
+
+<body>
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="nav-center">
+                <a href="hive.html" style="text-decoration:none; display:flex; align-items:center; gap:12px; color:inherit;">
+                    <div class="logo-box">H</div>
+                    <span class="logo-text">THE HIVE</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="hive.html" class="filter-pill" style="text-decoration:none;">← RETURN TO GRID</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hive-main">
+        <div class="hive-container profile-layout">
+
+            <!-- Sidebar -->
+            <aside>
+                <div class="identity-card">
+                    <div class="bee-avatar pulse" id="avatarDisplay">🐝</div>
+                    <div class="bee-title" id="profileId">B-????</div>
+                    <div class="status-indicator"></div>
+
+                    <div class="profile-nav">
+                        <a class="profile-nav-item" href="profile.html" style="text-align:left; text-decoration:none;">
+                            My Transmissions <span>📡</span>
+                        </a>
+                        <a class="profile-nav-item active" href="saved.html" style="text-align:left; text-decoration:none;">
+                            Saved Intel <span>🔖</span>
+                        </a>
+                        <a class="profile-nav-item" href="settings.html" style="text-align:left; text-decoration:none;">
+                            Terminal Settings <span>⚙️</span>
+                        </a>
+                        <button class="profile-nav-item logout-btn" onclick="logout()">
+                            Log Out <span>⏻</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Content -->
+            <section class="content-area">
+                <div class="page-header">
+                    <div class="page-header-icon">🔖</div>
+                    <div>
+                        <h1>Saved Intel</h1>
+                        <p>Threads you've bookmarked for later analysis</p>
+                    </div>
+                    <span class="saved-count" id="savedCount">— ITEMS</span>
+                </div>
+                <div class="threads-container" id="savedFeedContainer">
+                    <div class="empty-state">
+                        <div class="empty-icon">⏳</div>
+                        <h3>Decrypting archives...</h3>
+                        <p>Fetching your saved intel from the grid.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <div class="ambient-effects">
+            <div class="ambient-glow"></div>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script>
+        // backendUrl from js/config.js
+
+        function checkAuth() {
+            const token = localStorage.getItem("token");
+            if (!token) { window.location.href = "login.html"; return null; }
+            return token;
+        }
+
+        function logout() {
+            localStorage.removeItem("token");
+            window.location.href = "login.html";
+        }
+
+        function timeAgo(dateString) {
+            const diff = (Date.now() - new Date(dateString).getTime()) / 1000;
+            if (diff < 60) return "JUST NOW";
+            if (diff < 3600) return Math.floor(diff / 60) + "M AGO";
+            if (diff < 86400) return Math.floor(diff / 3600) + "H AGO";
+            return Math.floor(diff / 86400) + "D AGO";
+        }
+
+        async function loadSaved() {
+            const token = checkAuth();
+            if (!token) return;
+
+            // Populate sidebar bee ID
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                document.getElementById("profileId").textContent = payload.beeId || "B-????";
+            } catch (e) {}
+
+            const container = document.getElementById("savedFeedContainer");
+            try {
+                const res = await fetch(`${backendUrl}/api/profile/saved`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                if (res.status === 401 || res.status === 403) {
+                    localStorage.removeItem("token");
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const threads = await res.json();
+                document.getElementById("savedCount").textContent = `${threads.length} SAVED`;
+
+                if (threads.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">🔖</div>
+                            <h3>No saved intel yet</h3>
+                            <p>Head back to the grid and bookmark threads that matter to you.</p>
+                            <a href="hive.html">Browse the Grid →</a>
+                        </div>`;
+                    return;
+                }
+
+                container.innerHTML = threads.map(t => `
+                    <article class="thread-card">
+                        <div class="thread-votes">
+                            <span class="vote-count" style="color:var(--primary); font-size:16px;">${t.votes}</span>
+                            <span style="font-size:9px; color:var(--text-muted); font-weight:bold;">XP</span>
+                        </div>
+                        <div class="thread-content">
+                            <div class="thread-meta">
+                                <span class="thread-tag">${t.tag || 'GENERAL'}</span>
+                                <a href="profile.html?id=${t.author}" class="thread-author" style="text-decoration:none;">${t.author || 'UNKNOWN'}</a>
+                                <span class="thread-time">${timeAgo(t.createdAt)}</span>
+                            </div>
+                            <h3 class="thread-title">${t.title}</h3>
+                            <p class="thread-preview">${t.content}</p>
+                            <div class="thread-actions">
+                                <span class="action-btn" style="cursor:default;">💬 ${t.commentCount} REPLIES</span>
+                                <button class="action-btn" style="color:#ef4444;" onclick="unsaveThread('${t.id}', this)">🗑 REMOVE</button>
+                            </div>
+                        </div>
+                    </article>
+                `).join("");
+
+            } catch (err) {
+                container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Connection failed</h3><p>Could not reach the archive server.</p></div>`;
+            }
+        }
+
+        async function unsaveThread(threadId, btn) {
+            const token = checkAuth();
+            if (!token) return;
+            btn.textContent = "Removing...";
+            btn.disabled = true;
+            try {
+                await fetch(`${backendUrl}/api/threads/${threadId}/save`, {
+                    method: "POST",
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                // Reload the list
+                loadSaved();
+            } catch (e) {
+                btn.textContent = "🗑 REMOVE";
+                btn.disabled = false;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadSaved);
+    </script>
+</body>
+
+</html>

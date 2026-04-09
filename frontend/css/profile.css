@@ -1,0 +1,143 @@
+/* profile.css - Sleek non-zesty Profile Overhaul */
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+/* Sidebar Identity Card */
+.identity-card {
+    background: rgba(18, 17, 10, 0.8);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.identity-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--primary);
+}
+
+.bee-avatar {
+    width: 90px;
+    height: 90px;
+    background: var(--bg-black);
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    box-shadow: 0 0 25px var(--primary-glow);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.bee-avatar:hover {
+    transform: scale(1.05);
+}
+
+.bee-title {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 5px;
+    color: var(--text-main);
+    letter-spacing: 0.1em;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
+    margin: 0 auto 20px;
+}
+
+/* Sidebar Navigation */
+.profile-nav {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-nav-item {
+    padding: 12px 15px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-nav-item:hover {
+    border-color: var(--border-primary);
+    color: var(--text-main);
+}
+
+.profile-nav-item.active {
+    background: var(--primary-glow);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.logout-btn {
+    margin-top: 20px;
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+/* Content Area Tabs */
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tab-header {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.content-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(238, 199, 43, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(238, 199, 43, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(238, 199, 43, 0); }
+}

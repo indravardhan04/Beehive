@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beehive | Terminal Settings</title>
+    <meta name="description" content="Configure your Beehive identity and terminal preferences.">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/hive.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <style>
+        .settings-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .settings-card {
+            background: rgba(18, 17, 10, 0.8);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.2s ease;
+        }
+        .settings-card:hover {
+            border-color: var(--border-primary);
+        }
+        .settings-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .settings-card-icon { font-size: 22px; }
+        .settings-card-title {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+        .settings-field {
+            margin-bottom: 16px;
+        }
+        .settings-field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .settings-input {
+            width: 100%;
+            background: var(--bg-black);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+        .settings-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-glow);
+        }
+        .settings-btn {
+            padding: 12px 24px;
+            background: var(--primary);
+            color: var(--bg-black);
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: 0.2s ease;
+            margin-top: 8px;
+        }
+        .settings-btn:hover { box-shadow: 0 0 20px var(--primary-glow); }
+        .settings-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .status-msg {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+        }
+        .status-msg.success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #10b981; }
+        .status-msg.error   { background: rgba(239,68,68,0.1);  border: 1px solid rgba(239,68,68,0.3);  color: #ef4444; }
+
+        /* Avatar picker */
+        .avatar-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .avatar-option {
+            width: 52px;
+            height: 52px;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-black);
+            border: 2px solid var(--border-subtle);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+        .avatar-option:hover { border-color: var(--primary); transform: scale(1.1); }
+        .avatar-option.selected { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+    </style>
+</head>
+
+<body>
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="nav-center">
+                <a href="hive.html" style="text-decoration:none; display:flex; align-items:center; gap:12px; color:inherit;">
+                    <div class="logo-box">H</div>
+                    <span class="logo-text">THE HIVE</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="hive.html" class="filter-pill" style="text-decoration:none;">← RETURN TO GRID</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hive-main">
+        <div class="hive-container profile-layout">
+
+            <!-- Sidebar -->
+            <aside>
+                <div class="identity-card">
+                    <div class="bee-avatar pulse" id="avatarDisplay">🐝</div>
+                    <div class="bee-title" id="profileId">B-????</div>
+                    <div class="status-indicator"></div>
+
+                    <div class="profile-nav">
+                        <a class="profile-nav-item" href="profile.html" style="text-align:left; text-decoration:none;">
+                            My Transmissions <span>📡</span>
+                        </a>
+                        <a class="profile-nav-item" href="saved.html" style="text-align:left; text-decoration:none;">
+                            Saved Intel <span>🔖</span>
+                        </a>
+                        <a class="profile-nav-item active" href="settings.html" style="text-align:left; text-decoration:none;">
+                            Terminal Settings <span>⚙️</span>
+                        </a>
+                        <button class="profile-nav-item logout-btn" onclick="logout()">
+                            Log Out <span>⏻</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Settings Content -->
+            <section class="content-area">
+                <div class="tab-header" style="margin-bottom: 24px;">
+                    <h2 class="content-title">Terminal Settings</h2>
+                </div>
+
+                <div class="settings-grid">
+
+                    <!-- Avatar Picker -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <span class="settings-card-icon">🪪</span>
+                            <span class="settings-card-title">Identity Symbol</span>
+                        </div>
+                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">
+                            Choose your avatar. This symbol represents your anonymous presence in The Hive.
+                        </p>
+                        <div class="avatar-grid" id="avatarGrid"></div>
+                        <button class="settings-btn" id="saveAvatarBtn" onclick="saveAvatar()">CONFIRM IDENTITY</button>
+                        <div class="status-msg" id="avatarMsg"></div>
+                    </div>
+
+                    <!-- Change Password -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <span class="settings-card-icon">🔐</span>
+                            <span class="settings-card-title">Change Password</span>
+                        </div>
+                        <form id="passwordForm">
+                            <div class="settings-field">
+                                <label>Current Password</label>
+                                <input type="password" id="oldPassword" class="settings-input" placeholder="Enter current password" required>
+                            </div>
+                            <div class="settings-field">
+                                <label>New Password</label>
+                                <input type="password" id="newPassword" class="settings-input" placeholder="Enter new password" required>
+                            </div>
+                            <div class="settings-field">
+                                <label>Confirm New Password</label>
+                                <input type="password" id="confirmPassword" class="settings-input" placeholder="Re-enter new password" required>
+                            </div>
+                            <button type="submit" class="settings-btn" id="changePassBtn">UPDATE CREDENTIALS</button>
+                            <div class="status-msg" id="passMsg"></div>
+                        </form>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="settings-card" style="border-color: rgba(239,68,68,0.2);">
+                        <div class="settings-card-header">
+                            <span class="settings-card-icon">⚠️</span>
+                            <span class="settings-card-title" style="color:#ef4444;">Danger Zone</span>
+                        </div>
+                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">
+                            Terminate your active session. You will need to re-authenticate to access The Hive.
+                        </p>
+                        <button class="settings-btn" style="background: transparent; border: 1px solid rgba(239,68,68,0.5); color: #ef4444;" onclick="logout()">
+                            TERMINATE SESSION ⏻
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+        <div class="ambient-effects">
+            <div class="ambient-glow"></div>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script>
+        // backendUrl from js/config.js
+        const AVATARS = ['🐝','🐛','🦋','🐞','🦊','🐼','🦁','🐯','🐧','🦅','🦉','🐙','🦈','🦎','🐲'];
+        let selectedAvatar = '🐝';
+
+        function checkAuth() {
+            const token = localStorage.getItem("token");
+            if (!token) { window.location.href = "login.html"; return null; }
+            return token;
+        }
+
+        function logout() {
+            localStorage.removeItem("token");
+            window.location.href = "login.html";
+        }
+
+        function showMsg(elId, text, type) {
+            const el = document.getElementById(elId);
+            el.textContent = text;
+            el.className = `status-msg ${type}`;
+            el.style.display = "block";
+            setTimeout(() => { el.style.display = "none"; }, 4000);
+        }
+
+        function buildAvatarGrid(currentAvatar) {
+            const grid = document.getElementById("avatarGrid");
+            selectedAvatar = currentAvatar || '🐝';
+            grid.innerHTML = AVATARS.map(a => `
+                <div class="avatar-option ${a === selectedAvatar ? 'selected' : ''}" onclick="selectAvatar(this, '${a}')">${a}</div>
+            `).join("");
+            document.getElementById("avatarDisplay").textContent = selectedAvatar;
+        }
+
+        function selectAvatar(el, emoji) {
+            document.querySelectorAll(".avatar-option").forEach(o => o.classList.remove("selected"));
+            el.classList.add("selected");
+            selectedAvatar = emoji;
+            document.getElementById("avatarDisplay").textContent = emoji;
+        }
+
+        async function saveAvatar() {
+            const token = checkAuth();
+            if (!token) return;
+            const btn = document.getElementById("saveAvatarBtn");
+            btn.textContent = "SAVING...";
+            btn.disabled = true;
+            try {
+                const res = await fetch(`${backendUrl}/api/profile/avatar`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                    body: JSON.stringify({ avatar: selectedAvatar })
+                });
+                if (res.ok) {
+                    showMsg("avatarMsg", "✓ Identity symbol updated.", "success");
+                } else {
+                    showMsg("avatarMsg", "✗ Failed to save. Try again.", "error");
+                }
+            } catch {
+                showMsg("avatarMsg", "✗ Network error.", "error");
+            } finally {
+                btn.textContent = "CONFIRM IDENTITY";
+                btn.disabled = false;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = checkAuth();
+            if (!token) return;
+
+            // Decode JWT for sidebar Bee ID & avatar
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                document.getElementById("profileId").textContent = payload.beeId || "B-????";
+            } catch (e) {}
+
+            // Fetch current avatar from profile
+            try {
+                const res = await fetch(`${backendUrl}/api/profile`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                const data = await res.json();
+                buildAvatarGrid(data.avatar || '🐝');
+            } catch {
+                buildAvatarGrid('🐝');
+            }
+
+            // Password change form
+            document.getElementById("passwordForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const token = checkAuth();
+                if (!token) return;
+
+                const oldPassword     = document.getElementById("oldPassword").value;
+                const newPassword     = document.getElementById("newPassword").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+
+                if (newPassword !== confirmPassword) {
+                    showMsg("passMsg", "✗ New passwords do not match.", "error");
+                    return;
+                }
+                if (newPassword.length < 6) {
+                    showMsg("passMsg", "✗ Password must be at least 6 characters.", "error");
+                    return;
+                }
+
+                const btn = document.getElementById("changePassBtn");
+                btn.textContent = "UPDATING...";
+                btn.disabled = true;
+
+                try {
+                    const res = await fetch(`${backendUrl}/api/auth/change-password`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                        body: JSON.stringify({ oldPassword, newPassword })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        showMsg("passMsg", "✓ " + data.message, "success");
+                        document.getElementById("passwordForm").reset();
+                    } else {
+                        showMsg("passMsg", "✗ " + data.message, "error");
+                    }
+                } catch {
+                    showMsg("passMsg", "✗ Network error. Try again.", "error");
+                } finally {
+                    btn.textContent = "UPDATE CREDENTIALS";
+                    btn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

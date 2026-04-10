@@ -7,4 +7,4 @@
  * PRODUCTION → "https://your-app-name.onrender.com"
  * ─────────────────────────────────────────────────────
  */
-const backendUrl = "http://localhost:5000";
+const backendUrl = "https://beehive-production-3a0a.up.railway.app";
